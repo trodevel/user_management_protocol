@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12233 $ $Date::2019-05-08 #$ $Author: serge $
 
 namespace user_management_protocol;
 
@@ -35,12 +35,21 @@ function to_html_not_impl( & $obj )
     return get_html_table_header_elems( array( 'not implemented yet' ) );
 }
 
+/**************************************************
+ * OBJECTS
+ **************************************************/
+
+
+/**************************************************
+ * RESPONSES
+ **************************************************/
+
 function to_html_GetPersonalUserInfoResponse( & $obj )
 {
     return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'USER_ID', 'GENDER', 'NAME', 'FIRST_NAME',
+            get_html_table_row_header( array( 'USER_ID', 'GENDER', 'LAST NAME', 'FIRST_NAME',
                     'COMPANY', 'EMAIL', 'EMAIL_2', 'PHONE', 'PHONE_2', 'TIMEZONE' ) ) .
-            get_html_table_row_data( array( $obj->user_id, $obj->gender, $obj->name, $obj->first_name, $obj->company_name,
+            get_html_table_row_data( array( $obj->user_id, $obj->gender, $obj->last_name, $obj->first_name, $obj->company_name,
                     $obj->email, $obj->email_2, $obj->phone, $obj->phone_2, $obj->timezone ) ) );
 }
 // *********************************************************

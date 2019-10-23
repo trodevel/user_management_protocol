@@ -21,38 +21,37 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12234 $ $Date::2019-05-08 #$ $Author: serge $
 
 namespace user_management_protocol;
 
 require_once __DIR__.'/../php_snippets/convert_csv_to_array.php';   // convert_csv_to_array()
-require_once __DIR__.'/../php_snippets/nonascii_hex_codec.php';     // \utils\nonascii_hex_codec\decode()
 require_once __DIR__.'/../generic_protocol/response_parser.php';    // generic_protocol\create_parse_error()
-require_once __DIR__.'/../basic_objects/parser.php';                // \basic_objects\parse_TimePoint24
 require_once __DIR__.'/../basic_parser/parser.php';                 // \basic_parser\parse_VectorInt
 require_once 'user_management_protocol.php';
 
 
-function parse_GetPersonalUserInfoResponse( & $resp )
+function parse_GetPersonalUserInfoResponse( & $csv_arr )
 {
-    // GetPersonalUserInfoResponse;123;1;Doe;John;Yoyodine Corp.;john.doe@yoyodine.com;;+491234567890;;Europe/Berlin;
+    // user_management/GetPersonalUserInfoResponse;123;1;Doe;John;Yoyodine=20Corp.;john.doe@yoyodine.com;=;+491234567890;=;Europe/Berlin;
+
+    $offset = 1;
 
     $res = new GetPersonalUserInfoResponse;
 
-    $res->user_id      = intval( $resp[1] );
-    $res->gender       = intval( $resp[2] );
-    $res->name         = $resp[3];
-    $res->first_name   = $resp[4];
-    $res->company_name = $resp[5];
-    $res->email        = $resp[6];
-    $res->email_2      = $resp[7];
-    $res->phone        = $resp[8];
-    $res->phone_2      = $resp[9];
-    $res->timezone     = $resp[10];
+    $res->user_id      = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->gender       = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->last_name    = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->first_name   = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->company_name = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->email        = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->email_2      = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->phone        = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->phone_2      = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->timezone     = \basic_parser\parse_enc_string( $csv_arr, $offset );
 
     return $res;
 }
-
 
 class ResponseParser extends \generic_protocol\ResponseParser
 {
@@ -64,18 +63,19 @@ protected static function parse_csv_array( $csv_arr )
 
     $type = $csv_arr[0][0];
 
-    $func_map_2 = array(
-        'GetPersonalUserInfoResponse'   => 'parse_GetPersonalUserInfoResponse',
+    $func_map = array(
+        'user_management/GetPersonalUserInfoResponse'   => 'parse_GetPersonalUserInfoResponse',
         );
 
-    if( array_key_exists( $type, $func_map_2 ) )
+    if( array_key_exists( $type, $func_map ) )
     {
-        $func = '\\user_management_protocol\\' . $func_map_2[ $type ];
+        $func = '\\user_management_protocol\\' . $func_map[ $type ];
         return $func( $csv_arr[0] );
     }
 
     return \generic_protocol\ResponseParser::parse_csv_array( $csv_arr );
 }
+
 }
 
 ?>

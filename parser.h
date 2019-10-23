@@ -19,14 +19,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-03-31 #$ $Author: serge $
+// $Revision: 12218 $ $Date::2019-03-31 #$ $Author: serge $
 
 #ifndef LIB_USER_MANAGEMENT_PROTOCOL_PARSER_H
 #define LIB_USER_MANAGEMENT_PROTOCOL_PARSER_H
 
 #include "enums.h"              // request_type_e
 
-#include "user_management_protocol.h"    // SayFeedbackRequest
+#include "user_management_protocol.h"    // gender_e
 
 namespace user_management_protocol {
 
@@ -34,11 +34,8 @@ class Parser
 {
 public:
 
-    static SayFeedbackRequest::action_type_e to_sfr_action_type( const std::string & s );
     static gender_e    to_gender( const std::string & s );
     static request_type_e   to_request_type( const std::string & s );
-    static voice_e          to_voice( const std::string & s );
-    static urgency_e        to_urgency( const std::string & s );
 };
 
 } // namespace user_management_protocol

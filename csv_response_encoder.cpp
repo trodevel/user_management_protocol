@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-03-13 #$ $Author: serge $
+// $Revision: 12229 $ $Date::2019-03-13 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -51,11 +51,17 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
 std::string CsvResponseEncoder::to_csv( const GetPersonalUserInfoResponse & r )
 {
     return utils::CsvHelper::to_csv(
-            "GetPersonalUserInfoResponse",
+            "user_management/GetPersonalUserInfoResponse",
             r.user_id,
             static_cast<uint32_t>( r.gender ),
-            r.name, r.first_name, r.company_name,
-            r.email, r.email_2, r.phone, r.phone_2, r.timezone );
+            utils::nonascii_hex_codec::encode( r.last_name ),
+            utils::nonascii_hex_codec::encode( r.first_name ),
+            utils::nonascii_hex_codec::encode( r.company_name ),
+            utils::nonascii_hex_codec::encode( r.email ),
+            utils::nonascii_hex_codec::encode( r.email_2 ),
+            utils::nonascii_hex_codec::encode( r.phone ),
+            utils::nonascii_hex_codec::encode( r.phone_2 ),
+            utils::nonascii_hex_codec::encode( r.timezone ) );
 }
 
 } // namespace user_management_protocol

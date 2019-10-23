@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12229 $ $Date::2019-05-08 #$ $Author: serge $
 
 #ifndef LIB_USER_MANAGEMENT_PROTOCOL_RESPONSE_GEN_H
 #define LIB_USER_MANAGEMENT_PROTOCOL_RESPONSE_GEN_H
@@ -44,7 +44,7 @@ inline GetPersonalUserInfoResponse * create_GetPersonalUserInfoResponse(
 
     res->user_id    = user_id;
     res->gender     = gender;
-    res->name       = name;
+    res->last_name       = name;
     res->first_name = first_name;
     res->company_name = company_name;
     res->email      = email;

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-05-03 #$ $Author: serge $
+// $Revision: 12213 $ $Date::2019-05-03 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -39,14 +39,19 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
 {
     auto type = RequestParser::detect_request_type( r );
 
+    typedef request_type_e KeyType;
     typedef RequestParser Type;
 
     typedef ForwardMessage* (*PPMF)( const generic_request::Request & r );
 
-    static const std::map<request_type_e, PPMF> funcs =
+#define HANDLER_MAP_ENTRY(_v)       { KeyType::_v,    & Type::to_##_v }
+
+    static const std::map<KeyType, PPMF> funcs =
     {
-        { request_type_e::GetPersonalUserInfoRequest,       & Type::to_GetPersonalUserInfoRequest },
+        HANDLER_MAP_ENTRY( GetPersonalUserInfoRequest ),
     };
+
+#undef HANDLER_MAP_ENTRY
 
     auto it = funcs.find( type );
 

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-05-15 #$ $Author: serge $
+// $Revision: 12229 $ $Date::2019-05-15 #$ $Author: serge $
 
 #ifndef LIB_USER_MANAGEMENT_PROTOCOL_USER_MANAGEMENT_PROTOCOL_H
 #define LIB_USER_MANAGEMENT_PROTOCOL_USER_MANAGEMENT_PROTOCOL_H
@@ -51,7 +51,7 @@ struct GetPersonalUserInfoResponse: public generic_protocol::BackwardMessage
 {
     uint32_t        user_id;
     gender_e        gender;
-    std::string     name;
+    std::string     last_name;
     std::string     first_name;
     std::string     company_name;
     std::string     email;

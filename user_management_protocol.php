@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-05-28 #$ $Author: serge $
+// $Revision: 12230 $ $Date::2019-05-28 #$ $Author: serge $
 
 namespace user_management_protocol;
 
@@ -49,7 +49,7 @@ class GetPersonalUserInfoRequest extends Request
     public function to_generic_request()
     {
         $res = array(
-                "CMD"           => "GetPersonalUserInfoRequest",
+                "CMD"           => "user_management/GetPersonalUserInfoRequest",
                 "USER_ID"       => $this->user_id );
 
         return \generic_protocol\assemble_request( $res ) . parent::to_generic_request();
@@ -64,7 +64,7 @@ class GetPersonalUserInfoResponse extends \generic_protocol\BackwardMessage
 {
     public          $user_id;       // user ID
     public          $gender;        // gender, see gender_e_... constants
-    public          $name;          // family name
+    public          $last_name;     // family name
     public          $first_name;    // first name
     public          $company_name;  // company name
     public          $email;         // email

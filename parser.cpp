@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-11-10 #$ $Author: serge $
+// $Revision: 12212 $ $Date::2019-11-10 #$ $Author: serge $
 
 #include "parser.h"                 // self
 
@@ -30,12 +30,7 @@ namespace user_management_protocol {
 
 #define TUPLE_VAL_STR(_x_)  _x_,#_x_
 #define TUPLE_STR_VAL(_x_)  #_x_,_x_
-
-template< typename _M, typename _U, typename _V >
-void insert_inverse_pair( _M & map, _U first, _V second )
-{
-    map.insert( typename _M::value_type( second, first ) );
-}
+#define TUPLE_VAL_STR_PREF(_x_,_p_)  _x_,_p_+std::string(#_x_)
 
 template< typename _U, typename _V >
 std::pair<_V,_U> make_inverse_pair( _U first, _V second )
@@ -65,11 +60,10 @@ gender_e Parser::to_gender( const std::string & s )
 request_type_e Parser::to_request_type( const std::string & s )
 {
     typedef std::map< std::string, request_type_e > Map;
-    static Map m;
-    if( m.empty() )
+    static const Map m =
     {
-        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( GetPersonalUserInfoRequest ) );
-    }
+        make_inverse_pair( request_type_e:: TUPLE_VAL_STR_PREF( GetPersonalUserInfoRequest, "user_management/" ) ),
+    };
 
     auto it = m.find( s );
 

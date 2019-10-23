@@ -16,11 +16,18 @@ void test( const std::string & str )
     {
         generic_request::Request gr = generic_request::RequestParser::to_request( str );
 
-        generic_protocol::ForwardMessage * r = user_management_protocol::RequestParser::to_forward_message( gr );
+        auto * r = user_management_protocol::RequestParser::to_forward_message( gr );
 
-        delete r;
+        if( r )
+        {
+            delete r;
 
-        std::cout << "ok\n";
+            std::cout << "ok\n";
+        }
+        else
+        {
+            std::cout << "FAILED - cannot parse\n";
+        }
     }
     catch( std::exception & e )
     {
@@ -46,9 +53,9 @@ int main()
 
     std::cout << "\n*********************************\n" << std::endl;
 
-    test( "CMD=GetPersonalUserInfoRequest&SESSION_ID=af&USER_ID=" );
-    test( "CMD=GetPersonalUserInfoRequest&SESSION_ID=af&USER_ID=0" );
-    test( "CMD=GetPersonalUserInfoRequest&SESSION_ID=af&USER_ID=12" );
+    test( "CMD=user_management/GetPersonalUserInfoRequest&SESSION_ID=af&USER_ID=" );
+    test( "CMD=user_management/GetPersonalUserInfoRequest&SESSION_ID=af&USER_ID=0" );
+    test( "CMD=user_management/GetPersonalUserInfoRequest&SESSION_ID=af&USER_ID=12" );
 
     return 0;
 }

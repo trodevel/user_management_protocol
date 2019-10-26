@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12229 $ $Date::2019-05-15 #$ $Author: serge $
+// $Revision: 12273 $ $Date::2019-05-15 #$ $Author: serge $
 
 #ifndef LIB_USER_MANAGEMENT_PROTOCOL_USER_MANAGEMENT_PROTOCOL_H
 #define LIB_USER_MANAGEMENT_PROTOCOL_USER_MANAGEMENT_PROTOCOL_H
@@ -35,16 +35,39 @@ struct Request: public generic_protocol::Request
     virtual ~Request() {};
 };
 
-struct GetPersonalUserInfoRequest: public Request
-{
-    uint32_t        user_id;
-};
-
 enum class gender_e
 {
     UNDEF   = 0,
     MALE    = 1,
     FEMALE  = 2,
+};
+
+struct UserInfo: public Request
+{
+    gender_e        gender;
+    std::string     last_name;
+    std::string     first_name;
+    std::string     company_name;
+    std::string     email;
+    std::string     email_2;
+    std::string     phone;
+    std::string     phone_2;
+    std::string     timezone;
+};
+
+struct SetPersonalUserInfoRequest: public Request
+{
+    uint32_t        user_id;
+    UserInfo        user_info;
+};
+
+struct SetPersonalUserInfoResponse: public generic_protocol::BackwardMessage
+{
+};
+
+struct GetPersonalUserInfoRequest: public Request
+{
+    uint32_t        user_id;
 };
 
 struct GetPersonalUserInfoResponse: public generic_protocol::BackwardMessage

@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12230 $ $Date::2019-05-28 #$ $Author: serge $
+// $Revision: 12274 $ $Date::2019-05-28 #$ $Author: serge $
 
 namespace user_management_protocol;
 
@@ -34,6 +34,81 @@ class Request extends \generic_protocol\Request
         parent::__construct( $session_id );
     }
 }
+
+const gender_e_UNDEF   = 0;
+const gender_e_MALE    = 1;
+const gender_e_FEMALE  = 2;
+
+class UserInfo
+{
+    public          $gender;            // gender, see gender_e_... constants
+    public          $last_name;         // last_name
+    public          $first_name;        // first name
+    public          $company_name;      // company name
+    public          $email;             // email
+    public          $email_2;           // email 2
+    public          $phone;             // phone
+    public          $phone_2;           // phone 2
+    public          $timezone;          // timezone
+
+    function __construct( $gender, $last_name, $first_name, $company_name, $email, $email_2, $phone, $phone_2, $timezone )
+    {
+        $this->gender           = $gender;
+        $this->last_name        = $last_name;
+        $this->first_name       = $first_name;
+        $this->company_name     = $company_name;
+        $this->email            = $email;
+        $this->email_2          = $email_2;
+        $this->phone            = $phone;
+        $this->phone_2          = $phone_2;
+        $this->timezone         = $timezone;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "GENDER"        => $this->gender,
+            "LAST_NAME:X"   => str2hex( $this->last_name ),
+            "FIRST_NAME:X"  => str2hex( $this->first_name ),
+            "COMPANY_NAME:X"  => str2hex( $this->company_name ),
+            "EMAIL:X"       => str2hex( $this->email ),
+            "EMAIL_2:X"     => str2hex( $this->email_2 ),
+            "PHONE:X"       => str2hex( $this->phone ),
+            "PHONE_2:X"     => str2hex( $this->phone_2 ),
+            "TIMEZONE:X"    => str2hex( $this->timezone ) );
+
+        return \generic_protocol\assemble_request( $res );
+    }
+};
+
+class SetPersonalUserInfoRequest extends Request
+{
+    public          $user_id;           // user ID
+    public          $user_info;           // user_info, see UserInfo
+    
+    function __construct( $session_id, $user_id, $user_info )
+    {
+        parent::__construct( $session_id );
+        
+        $this->user_id          = $user_id;
+        $this->user_info        = $user_info;
+    }
+    
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"           => "user_management/SetPersonalUserInfoRequest",
+            "USER_ID"       => $this->user_id );
+        
+        return \generic_protocol\assemble_request( $res ) .
+            $this->user_info->to_generic_request() .
+            parent::to_generic_request();
+    }
+};
+
+class SetPersonalUserInfoResponse extends \generic_protocol\BackwardMessage
+{
+};
 
 class GetPersonalUserInfoRequest extends Request
 {
@@ -55,10 +130,6 @@ class GetPersonalUserInfoRequest extends Request
         return \generic_protocol\assemble_request( $res ) . parent::to_generic_request();
     }
 };
-
-const gender_e_UNDEF   = 0;
-const gender_e_MALE    = 1;
-const gender_e_FEMALE  = 2;
 
 class GetPersonalUserInfoResponse extends \generic_protocol\BackwardMessage
 {

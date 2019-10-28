@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-05-03 #$ $Author: serge $
+// $Revision: 12278 $ $Date::2019-05-03 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -30,6 +30,19 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "basic_objects/validator.h"            // basic_objects::Validator::validate
 
 namespace user_management_protocol {
+
+bool RequestValidator::validate( const UserInfo & r )
+{
+    return true;
+}
+
+bool RequestValidator::validate( const SetPersonalUserInfoRequest & r )
+{
+    if( r.user_id == 0 )
+        throw RequestParser::MalformedRequest( "USER_ID is 0" );
+
+    return generic_protocol::RequestValidator::validate( r );
+}
 
 bool RequestValidator::validate( const GetPersonalUserInfoRequest & r )
 {

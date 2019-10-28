@@ -35,6 +35,15 @@ void test( const std::string & str )
     }
 }
 
+void test_SetPersonalUserInfoResponse()
+{
+    auto s = user_management_protocol::create_SetPersonalUserInfoResponse();
+
+    std::cout << user_management_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
+
+    delete s;
+}
+
 void test_GetPersonalUserInfoResponse()
 {
     auto s = user_management_protocol::create_GetPersonalUserInfoResponse( 123,
@@ -46,9 +55,9 @@ void test_GetPersonalUserInfoResponse()
     delete s;
 }
 
-
 int main()
 {
+    test_SetPersonalUserInfoResponse();
     test_GetPersonalUserInfoResponse();
 
     std::cout << "\n*********************************\n" << std::endl;

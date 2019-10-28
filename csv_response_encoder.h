@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12210 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12276 $ $Date::2019-05-08 #$ $Author: serge $
 
 #ifndef LIB_USER_MANAGEMENT_PROTOCOL_CSV_RESPONSE_ENCODER_H
 #define LIB_USER_MANAGEMENT_PROTOCOL_CSV_RESPONSE_ENCODER_H
@@ -33,6 +33,7 @@ class CsvResponseEncoder
 {
 public:
     static std::string to_csv( const generic_protocol::BackwardMessage & r );
+    static std::string to_csv( const SetPersonalUserInfoResponse & r );
     static std::string to_csv( const GetPersonalUserInfoResponse & r );
 };
 

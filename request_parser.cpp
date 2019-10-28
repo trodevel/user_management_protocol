@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12213 $ $Date::2019-05-03 #$ $Author: serge $
+// $Revision: 12278 $ $Date::2019-05-03 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -48,6 +48,7 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
 
     static const std::map<KeyType, PPMF> funcs =
     {
+        HANDLER_MAP_ENTRY( SetPersonalUserInfoRequest ),
         HANDLER_MAP_ENTRY( GetPersonalUserInfoRequest ),
     };
 
@@ -69,6 +70,41 @@ request_type_e  RequestParser::detect_request_type( const generic_request::Reque
         throw MalformedRequest( "CMD is not defined" );
 
     return Parser::to_request_type( cmd );
+}
+
+void RequestParser::to_UserInfo( UserInfo * res, const generic_request::Request & r )
+{
+    uint32_t    gender;
+
+    r.get_value_converted( "GENDER", gender );
+
+    res->gender   = static_cast<gender_e>( gender );
+
+    r.get_value( "LAST_NAME",       res->last_name );
+    r.get_value( "FIRST_NAME",      res->first_name );
+    r.get_value( "COMPANY_NAME",    res->company_name );
+    r.get_value( "EMAIL",           res->email );
+    r.get_value( "EMAIL_2",         res->email_2 );
+    r.get_value( "PHONE",           res->phone );
+    r.get_value( "PHONE_2",         res->phone_2 );
+    r.get_value( "TIMEZONE",        res->timezone );
+
+    RequestValidator::validate( * res );
+}
+
+RequestParser::ForwardMessage * RequestParser::to_SetPersonalUserInfoRequest( const generic_request::Request & r )
+{
+    auto * res = new SetPersonalUserInfoRequest;
+
+    get_value_or_throw_uint32( res->user_id,       "USER_ID", r );
+
+    to_UserInfo( & res->user_info, r );
+
+    generic_protocol::RequestParser::to_request( res, r );
+
+    RequestValidator::validate( * res );
+
+    return res;
 }
 
 RequestParser::ForwardMessage * RequestParser::to_GetPersonalUserInfoRequest( const generic_request::Request & r )

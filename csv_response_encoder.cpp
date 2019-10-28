@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12229 $ $Date::2019-03-13 #$ $Author: serge $
+// $Revision: 12276 $ $Date::2019-03-13 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -38,7 +38,11 @@ namespace user_management_protocol {
 
 std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage & r )
 {
-    if( typeid( r ) == typeid( GetPersonalUserInfoResponse ) )
+    if( typeid( r ) == typeid( SetPersonalUserInfoResponse ) )
+    {
+        return to_csv( static_cast<const SetPersonalUserInfoResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( GetPersonalUserInfoResponse ) )
     {
         return to_csv( static_cast<const GetPersonalUserInfoResponse&>( r ) );
     }
@@ -46,6 +50,12 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     {
         return generic_protocol::CsvHelper::to_csv( r );
     }
+}
+
+std::string CsvResponseEncoder::to_csv( const SetPersonalUserInfoResponse & r )
+{
+    return utils::CsvHelper::to_csv(
+            "user_management/SetPersonalUserInfoResponse" );
 }
 
 std::string CsvResponseEncoder::to_csv( const GetPersonalUserInfoResponse & r )

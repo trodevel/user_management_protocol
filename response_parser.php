@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12234 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12284 $ $Date::2019-05-08 #$ $Author: serge $
 
 namespace user_management_protocol;
 
@@ -30,6 +30,15 @@ require_once __DIR__.'/../generic_protocol/response_parser.php';    // generic_p
 require_once __DIR__.'/../basic_parser/parser.php';                 // \basic_parser\parse_VectorInt
 require_once 'user_management_protocol.php';
 
+
+function parse_SetPersonalUserInfoResponse( & $csv_arr )
+{
+    // user_management/SetPersonalUserInfoResponse;
+
+    $res = new SetPersonalUserInfoResponse;
+
+    return $res;
+}
 
 function parse_GetPersonalUserInfoResponse( & $csv_arr )
 {
@@ -64,6 +73,7 @@ protected static function parse_csv_array( $csv_arr )
     $type = $csv_arr[0][0];
 
     $func_map = array(
+        'user_management/SetPersonalUserInfoResponse'   => 'parse_SetPersonalUserInfoResponse',
         'user_management/GetPersonalUserInfoResponse'   => 'parse_GetPersonalUserInfoResponse',
         );
 

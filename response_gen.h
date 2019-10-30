@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12277 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12288 $ $Date::2019-05-08 #$ $Author: serge $
 
 #ifndef LIB_USER_MANAGEMENT_PROTOCOL_RESPONSE_GEN_H
 #define LIB_USER_MANAGEMENT_PROTOCOL_RESPONSE_GEN_H

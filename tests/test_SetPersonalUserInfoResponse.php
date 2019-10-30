@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 12283 $ $Date:: 2019-10-29 #$ $Author: serge $
+// $Revision: 12288 $ $Date:: 2019-10-30 #$ $Author: serge $
 
 require_once '../user_management_protocol.php';
 require_once '../response_parser.php';

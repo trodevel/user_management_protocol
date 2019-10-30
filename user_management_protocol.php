@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12275 $ $Date::2019-05-28 #$ $Author: serge $
+// $Revision: 12288 $ $Date::2019-05-28 #$ $Author: serge $
 
 namespace user_management_protocol;
 

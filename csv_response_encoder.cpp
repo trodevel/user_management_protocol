@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12276 $ $Date::2019-03-13 #$ $Author: serge $
+// $Revision: 12288 $ $Date::2019-03-13 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 

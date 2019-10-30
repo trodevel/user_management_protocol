@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-11-10 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-11-10 #$ $Author: serge $
 
 #ifndef USER_MANAGEMENT_PROTOCOL_ENUMS_H
 #define USER_MANAGEMENT_PROTOCOL_ENUMS_H
@@ -29,8 +29,8 @@ namespace user_management_protocol {
 enum class request_type_e
 {
     UNDEF,
-    SetPersonalUserInfoRequest,
-    GetPersonalUserInfoRequest,
+    SetUserInfoRequest,
+    GetUserInfoRequest,
 };
 
 } // namespace user_management_protocol

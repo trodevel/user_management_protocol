@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-03-13 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-03-13 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -38,13 +38,13 @@ namespace user_management_protocol {
 
 std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage & r )
 {
-    if( typeid( r ) == typeid( SetPersonalUserInfoResponse ) )
+    if( typeid( r ) == typeid( SetUserInfoResponse ) )
     {
-        return to_csv( static_cast<const SetPersonalUserInfoResponse&>( r ) );
+        return to_csv( static_cast<const SetUserInfoResponse&>( r ) );
     }
-    else if( typeid( r ) == typeid( GetPersonalUserInfoResponse ) )
+    else if( typeid( r ) == typeid( GetUserInfoResponse ) )
     {
-        return to_csv( static_cast<const GetPersonalUserInfoResponse&>( r ) );
+        return to_csv( static_cast<const GetUserInfoResponse&>( r ) );
     }
     else
     {
@@ -52,16 +52,16 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     }
 }
 
-std::string CsvResponseEncoder::to_csv( const SetPersonalUserInfoResponse & r )
+std::string CsvResponseEncoder::to_csv( const SetUserInfoResponse & r )
 {
     return utils::CsvHelper::to_csv(
-            "user_management/SetPersonalUserInfoResponse" );
+            "user_management/SetUserInfoResponse" );
 }
 
-std::string CsvResponseEncoder::to_csv( const GetPersonalUserInfoResponse & r )
+std::string CsvResponseEncoder::to_csv( const GetUserInfoResponse & r )
 {
     return utils::CsvHelper::to_csv(
-            "user_management/GetPersonalUserInfoResponse",
+            "user_management/GetUserInfoResponse",
             r.user_id,
             static_cast<uint32_t>( r.gender ),
             utils::nonascii_hex_codec::encode( r.last_name ),

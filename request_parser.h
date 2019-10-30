@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-08 #$ $Author: serge $
 
 #include "generic_request/request.h"        // generic_request::Request
 #include "basic_parser/malformed_request.h" // MalformedRequest
@@ -42,8 +42,8 @@ private:
 
     static request_type_e   detect_request_type( const generic_request::Request & r );
 
-    static ForwardMessage *             to_SetPersonalUserInfoRequest( const generic_request::Request & r );
-    static ForwardMessage *             to_GetPersonalUserInfoRequest( const generic_request::Request & r );
+    static ForwardMessage *             to_SetUserInfoRequest( const generic_request::Request & r );
+    static ForwardMessage *             to_GetUserInfoRequest( const generic_request::Request & r );
 
     static void                         to_UserInfo( UserInfo * res, const generic_request::Request & r );
 };

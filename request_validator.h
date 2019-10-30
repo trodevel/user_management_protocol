@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-03 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-03 #$ $Author: serge $
 
 #include "user_management_protocol.h"    // Request...
 
@@ -29,8 +29,8 @@ class RequestValidator
 {
 public:
     static bool validate( const UserInfo & r );
-    static bool validate( const SetPersonalUserInfoRequest & r );
-    static bool validate( const GetPersonalUserInfoRequest & r );
+    static bool validate( const SetUserInfoRequest & r );
+    static bool validate( const GetUserInfoRequest & r );
 };
 
 } // namespace user_management_protocol

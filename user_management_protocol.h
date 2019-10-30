@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-15 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-15 #$ $Author: serge $
 
 #ifndef LIB_USER_MANAGEMENT_PROTOCOL_USER_MANAGEMENT_PROTOCOL_H
 #define LIB_USER_MANAGEMENT_PROTOCOL_USER_MANAGEMENT_PROTOCOL_H
@@ -55,22 +55,22 @@ struct UserInfo: public Request
     std::string     timezone;
 };
 
-struct SetPersonalUserInfoRequest: public Request
+struct SetUserInfoRequest: public Request
 {
     uint32_t        user_id;
     UserInfo        user_info;
 };
 
-struct SetPersonalUserInfoResponse: public generic_protocol::BackwardMessage
+struct SetUserInfoResponse: public generic_protocol::BackwardMessage
 {
 };
 
-struct GetPersonalUserInfoRequest: public Request
+struct GetUserInfoRequest: public Request
 {
     uint32_t        user_id;
 };
 
-struct GetPersonalUserInfoResponse: public generic_protocol::BackwardMessage
+struct GetUserInfoResponse: public generic_protocol::BackwardMessage
 {
     uint32_t        user_id;
     gender_e        gender;

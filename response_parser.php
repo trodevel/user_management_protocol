@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-08 #$ $Author: serge $
 
 namespace user_management_protocol;
 
@@ -31,22 +31,22 @@ require_once __DIR__.'/../basic_parser/parser.php';                 // \basic_pa
 require_once 'user_management_protocol.php';
 
 
-function parse_SetPersonalUserInfoResponse( & $csv_arr )
+function parse_SetUserInfoResponse( & $csv_arr )
 {
-    // user_management/SetPersonalUserInfoResponse;
+    // user_management/SetUserInfoResponse;
 
-    $res = new SetPersonalUserInfoResponse;
+    $res = new SetUserInfoResponse;
 
     return $res;
 }
 
-function parse_GetPersonalUserInfoResponse( & $csv_arr )
+function parse_GetUserInfoResponse( & $csv_arr )
 {
-    // user_management/GetPersonalUserInfoResponse;123;1;Doe;John;Yoyodine=20Corp.;john.doe@yoyodine.com;=;+491234567890;=;Europe/Berlin;
+    // user_management/GetUserInfoResponse;123;1;Doe;John;Yoyodine=20Corp.;john.doe@yoyodine.com;=;+491234567890;=;Europe/Berlin;
 
     $offset = 1;
 
-    $res = new GetPersonalUserInfoResponse;
+    $res = new GetUserInfoResponse;
 
     $res->user_id      = \basic_parser\parse_int( $csv_arr, $offset );
     $res->gender       = \basic_parser\parse_int( $csv_arr, $offset );
@@ -73,8 +73,8 @@ protected static function parse_csv_array( $csv_arr )
     $type = $csv_arr[0][0];
 
     $func_map = array(
-        'user_management/SetPersonalUserInfoResponse'   => 'parse_SetPersonalUserInfoResponse',
-        'user_management/GetPersonalUserInfoResponse'   => 'parse_GetPersonalUserInfoResponse',
+        'user_management/SetUserInfoResponse'   => 'parse_SetUserInfoResponse',
+        'user_management/GetUserInfoResponse'   => 'parse_GetUserInfoResponse',
         );
 
     if( array_key_exists( $type, $func_map ) )

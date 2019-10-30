@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 12288 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-08 #$ $Author: serge $
 
 require_once 'user_management_protocol.php';
 require_once 'response_parser.php';
@@ -24,13 +24,13 @@ $session_id = "afafaf";
         "Europe/Berlin"
         );
 
-    $req = new \user_management_protocol\SetPersonalUserInfoRequest( $session_id, $user_id, $user_info );
+    $req = new \user_management_protocol\SetUserInfoRequest( $session_id, $user_id, $user_info );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }
 
 {
-    $req = new \user_management_protocol\GetPersonalUserInfoRequest( $session_id, 2074824509 );
+    $req = new \user_management_protocol\GetUserInfoRequest( $session_id, 2074824509 );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }

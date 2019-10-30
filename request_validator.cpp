@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-03 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-03 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -36,7 +36,7 @@ bool RequestValidator::validate( const UserInfo & r )
     return true;
 }
 
-bool RequestValidator::validate( const SetPersonalUserInfoRequest & r )
+bool RequestValidator::validate( const SetUserInfoRequest & r )
 {
     if( r.user_id == 0 )
         throw RequestParser::MalformedRequest( "USER_ID is 0" );
@@ -44,7 +44,7 @@ bool RequestValidator::validate( const SetPersonalUserInfoRequest & r )
     return generic_protocol::RequestValidator::validate( r );
 }
 
-bool RequestValidator::validate( const GetPersonalUserInfoRequest & r )
+bool RequestValidator::validate( const GetUserInfoRequest & r )
 {
     if( r.user_id == 0 )
         throw RequestParser::MalformedRequest( "USER_ID is 0" );

@@ -19,23 +19,23 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-08 #$ $Author: serge $
 
 #ifndef LIB_USER_MANAGEMENT_PROTOCOL_RESPONSE_GEN_H
 #define LIB_USER_MANAGEMENT_PROTOCOL_RESPONSE_GEN_H
 
-#include "user_management_protocol.h"        // GetPersonalUserInfoResponse
+#include "user_management_protocol.h"        // GetUserInfoResponse
 
 namespace user_management_protocol {
 
-inline SetPersonalUserInfoResponse * create_SetPersonalUserInfoResponse()
+inline SetUserInfoResponse * create_SetUserInfoResponse()
 {
-    auto * res = new SetPersonalUserInfoResponse;
+    auto * res = new SetUserInfoResponse;
 
     return res;
 }
 
-inline GetPersonalUserInfoResponse * create_GetPersonalUserInfoResponse(
+inline GetUserInfoResponse * create_GetUserInfoResponse(
         uint32_t            user_id,
         gender_e            gender,
         const std::string   & name,
@@ -47,7 +47,7 @@ inline GetPersonalUserInfoResponse * create_GetPersonalUserInfoResponse(
         const std::string   & phone_2,
         const std::string   & timezone )
 {
-    auto * res = new GetPersonalUserInfoResponse;
+    auto * res = new GetUserInfoResponse;
 
     res->user_id    = user_id;
     res->gender     = gender;

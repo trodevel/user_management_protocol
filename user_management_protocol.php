@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-28 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-28 #$ $Author: serge $
 
 namespace user_management_protocol;
 
@@ -81,7 +81,7 @@ class UserInfo
     }
 };
 
-class SetPersonalUserInfoRequest extends Request
+class SetUserInfoRequest extends Request
 {
     public          $user_id;           // user ID
     public          $user_info;         // user_info, see UserInfo
@@ -97,7 +97,7 @@ class SetPersonalUserInfoRequest extends Request
     public function to_generic_request()
     {
         $res = array(
-            "CMD"           => "user_management/SetPersonalUserInfoRequest",
+            "CMD"           => "user_management/SetUserInfoRequest",
             "USER_ID"       => $this->user_id );
         
         return \generic_protocol\assemble_request( $res ) .
@@ -106,11 +106,11 @@ class SetPersonalUserInfoRequest extends Request
     }
 };
 
-class SetPersonalUserInfoResponse extends \generic_protocol\BackwardMessage
+class SetUserInfoResponse extends \generic_protocol\BackwardMessage
 {
 };
 
-class GetPersonalUserInfoRequest extends Request
+class GetUserInfoRequest extends Request
 {
     public        $user_id;     // user ID
 
@@ -124,14 +124,14 @@ class GetPersonalUserInfoRequest extends Request
     public function to_generic_request()
     {
         $res = array(
-                "CMD"           => "user_management/GetPersonalUserInfoRequest",
+                "CMD"           => "user_management/GetUserInfoRequest",
                 "USER_ID"       => $this->user_id );
 
         return \generic_protocol\assemble_request( $res ) . parent::to_generic_request();
     }
 };
 
-class GetPersonalUserInfoResponse extends \generic_protocol\BackwardMessage
+class GetUserInfoResponse extends \generic_protocol\BackwardMessage
 {
     public          $user_id;       // user ID
     public          $gender;        // gender, see gender_e_... constants

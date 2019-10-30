@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-11-10 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-11-10 #$ $Author: serge $
 
 #include "parser.h"                 // self
 
@@ -62,8 +62,8 @@ request_type_e Parser::to_request_type( const std::string & s )
     typedef std::map< std::string, request_type_e > Map;
     static const Map m =
     {
-        make_inverse_pair( request_type_e:: TUPLE_VAL_STR_PREF( SetPersonalUserInfoRequest, "user_management/" ) ),
-        make_inverse_pair( request_type_e:: TUPLE_VAL_STR_PREF( GetPersonalUserInfoRequest, "user_management/" ) ),
+        make_inverse_pair( request_type_e:: TUPLE_VAL_STR_PREF( SetUserInfoRequest, "user_management/" ) ),
+        make_inverse_pair( request_type_e:: TUPLE_VAL_STR_PREF( GetUserInfoRequest, "user_management/" ) ),
     };
 
     auto it = m.find( s );

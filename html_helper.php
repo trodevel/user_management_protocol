@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-08 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-08 #$ $Author: serge $
 
 namespace user_management_protocol;
 
@@ -44,14 +44,14 @@ function to_html_not_impl( & $obj )
  * RESPONSES
  **************************************************/
 
-function to_html_SetPersonalUserInfoResponse( & $obj )
+function to_html_SetUserInfoResponse( & $obj )
 {
     return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
             get_html_table_row_header( array( 'RESPONSE' ) ) .
             get_html_table_row_data( array( 'OK' ) ) );
 }
 
-function to_html_GetPersonalUserInfoResponse( & $obj )
+function to_html_GetUserInfoResponse( & $obj )
 {
     return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
         get_html_table_row_header( array( 'USER_ID', 'GENDER', 'LAST NAME', 'FIRST_NAME',
@@ -65,8 +65,8 @@ function to_html_GetPersonalUserInfoResponse( & $obj )
 function to_html( $obj )
 {
     $handler_map = array(
-        'user_management_protocol\SetPersonalUserInfoResponse'   => 'to_html_SetPersonalUserInfoResponse',
-        'user_management_protocol\GetPersonalUserInfoResponse'   => 'to_html_GetPersonalUserInfoResponse',
+        'user_management_protocol\SetUserInfoResponse'   => 'to_html_SetUserInfoResponse',
+        'user_management_protocol\GetUserInfoResponse'   => 'to_html_GetUserInfoResponse',
     );
 
     $type = get_class ( $obj );

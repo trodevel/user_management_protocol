@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12288 $ $Date::2019-05-03 #$ $Author: serge $
+// $Revision: 12293 $ $Date::2019-05-03 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -48,8 +48,8 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
 
     static const std::map<KeyType, PPMF> funcs =
     {
-        HANDLER_MAP_ENTRY( SetPersonalUserInfoRequest ),
-        HANDLER_MAP_ENTRY( GetPersonalUserInfoRequest ),
+        HANDLER_MAP_ENTRY( SetUserInfoRequest ),
+        HANDLER_MAP_ENTRY( GetUserInfoRequest ),
     };
 
 #undef HANDLER_MAP_ENTRY
@@ -92,9 +92,9 @@ void RequestParser::to_UserInfo( UserInfo * res, const generic_request::Request 
     RequestValidator::validate( * res );
 }
 
-RequestParser::ForwardMessage * RequestParser::to_SetPersonalUserInfoRequest( const generic_request::Request & r )
+RequestParser::ForwardMessage * RequestParser::to_SetUserInfoRequest( const generic_request::Request & r )
 {
-    auto * res = new SetPersonalUserInfoRequest;
+    auto * res = new SetUserInfoRequest;
 
     get_value_or_throw_uint32( res->user_id,       "USER_ID", r );
 
@@ -107,9 +107,9 @@ RequestParser::ForwardMessage * RequestParser::to_SetPersonalUserInfoRequest( co
     return res;
 }
 
-RequestParser::ForwardMessage * RequestParser::to_GetPersonalUserInfoRequest( const generic_request::Request & r )
+RequestParser::ForwardMessage * RequestParser::to_GetUserInfoRequest( const generic_request::Request & r )
 {
-    auto * res = new GetPersonalUserInfoRequest;
+    auto * res = new GetUserInfoRequest;
 
     get_value_or_throw_uint32( res->user_id,       "USER_ID", r );
 

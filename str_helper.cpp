@@ -1,37 +1,25 @@
-/*
-
-String Helper. Provides to_string() function.
-
-Copyright (C) 2019 Sergey Kolevatov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-// $Revision: 12210 $ $Date::2019-05-08 #$ $Author: serge $
-
-#include "str_helper.h"             // self
-
-#include <sstream>                  // std::ostringstream
+// system includes
 #include <map>
 
-namespace user_management_protocol {
+// includes
+#include "str_helper.h"
+#include "basic_objects/str_helper.h"
+#include "basic_parser/str_helper.h"
+
+namespace user_management_protocol
+{
+
+namespace str_helper
+{
+
+using ::basic_parser::str_helper::write;
+using ::basic_parser::str_helper::write_t;
+
+// enums
 
 #define TUPLE_VAL_STR(_x_)  _x_,#_x_
-#define TUPLE_STR_VAL(_x_)  #_x_,_x_
 
-const std::string & StrHelper::to_string( const gender_e s )
+std::ostream & write( std::ostream & os, const gender_e r )
 {
     typedef gender_e Type;
     static const std::map< Type, std::string > m =
@@ -41,14 +29,111 @@ const std::string & StrHelper::to_string( const gender_e s )
         { Type:: TUPLE_VAL_STR( FEMALE ) },
     };
 
-    auto it = m.find( s );
+    auto it = m.find( r );
 
     static const std::string undef( "undef" );
 
-    if( it == m.end() )
-        return undef;
+    if( it != m.end() )
+        return write( os, it->second );
 
-    return it->second;
+    return write( os, undef );
 }
 
+// objects
+
+std::ostream & write( std::ostream & os, const UserInfo & r )
+{
+    os << "(";
+
+    os << " gender="; write( os, r.gender );
+    os << " last_name="; write( os, r.last_name );
+    os << " first_name="; write( os, r.first_name );
+    os << " company_name="; write( os, r.company_name );
+    os << " email="; write( os, r.email );
+    os << " email_2="; write( os, r.email_2 );
+    os << " phone="; write( os, r.phone );
+    os << " phone_2="; write( os, r.phone_2 );
+    os << " timezone="; write( os, r.timezone );
+
+    os << ")";
+
+    return os;
+}
+
+// base messages
+
+std::ostream & write( std::ostream & os, const Request & r )
+{
+    os << "(";
+
+
+    os << ")";
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const BackwardMessage & r )
+{
+    os << "(";
+
+
+    os << ")";
+
+    return os;
+}
+
+// messages
+
+std::ostream & write( std::ostream & os, const SetUserInfoRequest & r )
+{
+    // base class
+    str_helper::write( os, static_cast<const Request&>( r ) );
+
+    os << " user_id="; write( os, r.user_id );
+    os << " user_info="; write( os, r.user_info );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const SetUserInfoResponse & r )
+{
+    // base class
+    str_helper::write( os, static_cast<const BackwardMessage&>( r ) );
+
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const GetUserInfoRequest & r )
+{
+    // base class
+    str_helper::write( os, static_cast<const Request&>( r ) );
+
+    os << " user_id="; write( os, r.user_id );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const GetUserInfoResponse & r )
+{
+    // base class
+    str_helper::write( os, static_cast<const BackwardMessage&>( r ) );
+
+    os << " user_id="; write( os, r.user_id );
+    os << " gender="; write( os, r.gender );
+    os << " last_name="; write( os, r.last_name );
+    os << " first_name="; write( os, r.first_name );
+    os << " company_name="; write( os, r.company_name );
+    os << " email="; write( os, r.email );
+    os << " email_2="; write( os, r.email_2 );
+    os << " phone="; write( os, r.phone );
+    os << " phone_2="; write( os, r.phone_2 );
+    os << " timezone="; write( os, r.timezone );
+
+    return os;
+}
+
+} // namespace str_helper
+
 } // namespace user_management_protocol
+

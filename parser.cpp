@@ -1,77 +1,192 @@
-/*
-
-Parser.
-
-Copyright (C) 2019 Sergey Kolevatov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-// $Revision: 12293 $ $Date::2019-11-10 #$ $Author: serge $
-
-#include "parser.h"                 // self
-
+// system includes
 #include <map>
-#include <stdexcept>                // std::invalid_argument
+#include <memory>
 
-namespace user_management_protocol {
+// includes
+#include "parser.h"
+#include "basic_objects/parser.h"
+#include "basic_parser/parser.h"
+#include "basic_parser/malformed_request.h"
+#include "validator.h"
+#include "request_type_parser.h"
 
-#define TUPLE_VAL_STR(_x_)  _x_,#_x_
-#define TUPLE_STR_VAL(_x_)  #_x_,_x_
-#define TUPLE_VAL_STR_PREF(_x_,_p_)  _x_,_p_+std::string(#_x_)
-
-template< typename _U, typename _V >
-std::pair<_V,_U> make_inverse_pair( _U first, _V second )
+namespace user_management_protocol
 {
-    return std::make_pair( second, first );
+
+namespace parser
+{
+
+using ::basic_parser::parser::get_value_or_throw;
+using ::basic_parser::parser::get_value_or_throw_t;
+
+// enums
+
+void get_value_or_throw( gender_e * res, const std::string & key, const generic_request::Request & r )
+{
+    uint32_t res_i;
+
+    get_value_or_throw( & res_i, key, r );
+
+    * res = static_cast<gender_e>( res_i );
 }
 
-gender_e Parser::to_gender( const std::string & s )
+// objects
+
+void get_value_or_throw( UserInfo * res, const std::string & prefix, const generic_request::Request & r )
 {
-    typedef gender_e Type;
-    typedef std::map< std::string, Type > Map;
-    static const Map m =
+    get_value_or_throw( & res->gender, prefix + ".GENDER", r );
+    get_value_or_throw( & res->last_name, prefix + ".LAST_NAME", r );
+    get_value_or_throw( & res->first_name, prefix + ".FIRST_NAME", r );
+    get_value_or_throw( & res->company_name, prefix + ".COMPANY_NAME", r );
+    get_value_or_throw( & res->email, prefix + ".EMAIL", r );
+    get_value_or_throw( & res->email_2, prefix + ".EMAIL_2", r );
+    get_value_or_throw( & res->phone, prefix + ".PHONE", r );
+    get_value_or_throw( & res->phone_2, prefix + ".PHONE_2", r );
+    get_value_or_throw( & res->timezone, prefix + ".TIMEZONE", r );
+}
+
+// base messages
+
+void get_value_or_throw( Request * res, const generic_request::Request & r )
+{
+}
+
+void get_value_or_throw( BackwardMessage * res, const generic_request::Request & r )
+{
+}
+
+// messages
+
+void get_value_or_throw( SetUserInfoRequest * res, const generic_request::Request & r )
+{
+    // base class
+    parser::get_value_or_throw( static_cast<Request*>( res ), r );
+
+    get_value_or_throw( & res->user_id, "USER_ID", r );
+    get_value_or_throw( & res->user_info, "USER_INFO", r );
+}
+
+void get_value_or_throw( SetUserInfoResponse * res, const generic_request::Request & r )
+{
+    // base class
+    parser::get_value_or_throw( static_cast<BackwardMessage*>( res ), r );
+
+}
+
+void get_value_or_throw( GetUserInfoRequest * res, const generic_request::Request & r )
+{
+    // base class
+    parser::get_value_or_throw( static_cast<Request*>( res ), r );
+
+    get_value_or_throw( & res->user_id, "USER_ID", r );
+}
+
+void get_value_or_throw( GetUserInfoResponse * res, const generic_request::Request & r )
+{
+    // base class
+    parser::get_value_or_throw( static_cast<BackwardMessage*>( res ), r );
+
+    get_value_or_throw( & res->user_id, "USER_ID", r );
+    get_value_or_throw( & res->gender, "GENDER", r );
+    get_value_or_throw( & res->last_name, "LAST_NAME", r );
+    get_value_or_throw( & res->first_name, "FIRST_NAME", r );
+    get_value_or_throw( & res->company_name, "COMPANY_NAME", r );
+    get_value_or_throw( & res->email, "EMAIL", r );
+    get_value_or_throw( & res->email_2, "EMAIL_2", r );
+    get_value_or_throw( & res->phone, "PHONE", r );
+    get_value_or_throw( & res->phone_2, "PHONE_2", r );
+    get_value_or_throw( & res->timezone, "TIMEZONE", r );
+}
+
+// to object
+
+Object * to_SetUserInfoRequest( const generic_request::Request & r )
+{
+    std::unique_ptr<SetUserInfoRequest> res( new SetUserInfoRequest );
+
+    get_value_or_throw( res.get(), r );
+
+    validator::validate( * res );
+
+    return res.release();
+}
+
+Object * to_SetUserInfoResponse( const generic_request::Request & r )
+{
+    std::unique_ptr<SetUserInfoResponse> res( new SetUserInfoResponse );
+
+    get_value_or_throw( res.get(), r );
+
+    validator::validate( * res );
+
+    return res.release();
+}
+
+Object * to_GetUserInfoRequest( const generic_request::Request & r )
+{
+    std::unique_ptr<GetUserInfoRequest> res( new GetUserInfoRequest );
+
+    get_value_or_throw( res.get(), r );
+
+    validator::validate( * res );
+
+    return res.release();
+}
+
+Object * to_GetUserInfoResponse( const generic_request::Request & r )
+{
+    std::unique_ptr<GetUserInfoResponse> res( new GetUserInfoResponse );
+
+    get_value_or_throw( res.get(), r );
+
+    validator::validate( * res );
+
+    return res.release();
+}
+
+// to forward message
+
+basic_parser::Object* to_forward_message( const generic_request::Request & r )
+{
+    auto type = detect_request_type( r );
+
+    typedef request_type_e KeyType;
+
+    typedef Object* (*PPMF)( const generic_request::Request & r );
+
+#define HANDLER_MAP_ENTRY(_v)       { KeyType::_v,    & to_##_v }
+
+    static const std::map<KeyType, PPMF> funcs =
     {
-        make_inverse_pair( Type:: TUPLE_VAL_STR( UNDEF ) ),
-        make_inverse_pair( Type:: TUPLE_VAL_STR( MALE ) ),
-        make_inverse_pair( Type:: TUPLE_VAL_STR( FEMALE ) ),
+        HANDLER_MAP_ENTRY( SetUserInfoRequest ),
+        HANDLER_MAP_ENTRY( SetUserInfoResponse ),
+        HANDLER_MAP_ENTRY( GetUserInfoRequest ),
+        HANDLER_MAP_ENTRY( GetUserInfoResponse ),
     };
 
-    auto it = m.find( s );
+#undef HANDLER_MAP_ENTRY
 
-    if( it == m.end() )
-        throw std::invalid_argument( ( "to_gender: cannot parse " + s ).c_str() );
+    auto it = funcs.find( type );
 
-    return it->second;
+    if( it != funcs.end() )
+        return it->second( r );
+
+    return nullptr;
 }
 
-request_type_e Parser::to_request_type( const std::string & s )
+using basic_parser::MalformedRequest;
+
+request_type_e  detect_request_type( const generic_request::Request & r )
 {
-    typedef std::map< std::string, request_type_e > Map;
-    static const Map m =
-    {
-        make_inverse_pair( request_type_e:: TUPLE_VAL_STR_PREF( SetUserInfoRequest, "user_management/" ) ),
-        make_inverse_pair( request_type_e:: TUPLE_VAL_STR_PREF( GetUserInfoRequest, "user_management/" ) ),
-    };
+    std::string cmd;
 
-    auto it = m.find( s );
+    if( r.get_value( "CMD", cmd ) == false )
+        throw MalformedRequest( "CMD is not defined" );
 
-    if( it == m.end() )
-        return request_type_e::UNDEF;
-
-    return it->second;
+    return RequestTypeParser::to_request_type( cmd );
 }
+
+} // namespace parser
 
 } // namespace user_management_protocol
+

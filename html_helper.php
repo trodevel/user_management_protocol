@@ -1,75 +1,154 @@
 <?php
 
-/*
-
-User Management Protocol messages.
-
-Copyright (C) 2019 Sergey Kolevatov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-// $Revision: 12293 $ $Date::2019-05-08 #$ $Author: serge $
-
 namespace user_management_protocol;
 
-require_once 'user_management_protocol.php';
-require_once __DIR__.'/../generic_protocol/str_helper.php';
-require_once __DIR__.'/../basic_objects/str_helper.php';        // to_string_TimeWindow
-require_once __DIR__.'/../php_snippets/epoch_to_date.php';      // epoch_to_date
 
-function to_html_not_impl( & $obj )
+// includes
+require_once __DIR__.'/../basic_objects/html_helper.php';
+require_once __DIR__.'/../basic_parser/html_helper.php';
+require_once 'str_helper.php';
+
+// enums
+
+function to_html_header__gender_e( $r )
 {
-    return get_html_table_header_elems( array( 'not implemented yet' ) );
+    return array( 'GENDER_E' );
 }
 
-/**************************************************
- * OBJECTS
- **************************************************/
-
-
-/**************************************************
- * RESPONSES
- **************************************************/
-
-function to_html_SetUserInfoResponse( & $obj )
+function to_html__gender_e( $r )
 {
-    return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'RESPONSE' ) ) .
-            get_html_table_row_data( array( 'OK' ) ) );
+    return to_string__gender_e( $r ) . " (" . $r . ")";
 }
 
-function to_html_GetUserInfoResponse( & $obj )
+// objects
+
+function to_html__UserInfo( & $r )
 {
-    return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-        get_html_table_row_header( array( 'USER_ID', 'GENDER', 'LAST NAME', 'FIRST_NAME',
-            'COMPANY', 'EMAIL', 'EMAIL_2', 'PHONE', 'PHONE_2', 'TIMEZONE' ) ) .
-        get_html_table_row_data( array( $obj->user_id, $obj->gender, $obj->last_name, $obj->first_name, $obj->company_name,
-            $obj->email, $obj->email_2, $obj->phone, $obj->phone_2, $obj->timezone ) ) );
+    $header = array( 'GENDER', 'LAST_NAME', 'FIRST_NAME', 'COMPANY_NAME', 'EMAIL', 'EMAIL_2', 'PHONE', 'PHONE_2', 'TIMEZONE' );
+
+    $data = array(
+        to_html__gender_e( $r->gender ),
+        \basic_parser\to_html__string( $r->last_name ),
+        \basic_parser\to_html__string( $r->first_name ),
+        \basic_parser\to_html__string( $r->company_name ),
+        \basic_parser\to_html__string( $r->email ),
+        \basic_parser\to_html__string( $r->email_2 ),
+        \basic_parser\to_html__string( $r->phone ),
+        \basic_parser\to_html__string( $r->phone_2 ),
+        \basic_parser\to_html__string( $r->timezone )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
 }
 
-// *********************************************************
+// base messages
+
+function to_html__Request( & $r )
+{
+    $header = array(  );
+
+    $data = array(        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__BackwardMessage( & $r )
+{
+    $header = array(  );
+
+    $data = array(        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+// messages
+
+function to_html__SetUserInfoRequest( & $r )
+{
+    $header = array( 'Request', 'USER_ID', 'USER_INFO' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->user_id ),
+        to_html__UserInfo( $r->user_info )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__SetUserInfoResponse( & $r )
+{
+    $header = array( 'BackwardMessage' );
+
+    $data = array(
+        to_html__BackwardMessage( $r )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__GetUserInfoRequest( & $r )
+{
+    $header = array( 'Request', 'USER_ID' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->user_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__GetUserInfoResponse( & $r )
+{
+    $header = array( 'BackwardMessage', 'USER_ID', 'GENDER', 'LAST_NAME', 'FIRST_NAME', 'COMPANY_NAME', 'EMAIL', 'EMAIL_2', 'PHONE', 'PHONE_2', 'TIMEZONE' );
+
+    $data = array(
+        to_html__BackwardMessage( $r ),
+        \basic_parser\to_html__int( $r->user_id ),
+        to_html__gender_e( $r->gender ),
+        \basic_parser\to_html__string( $r->last_name ),
+        \basic_parser\to_html__string( $r->first_name ),
+        \basic_parser\to_html__string( $r->company_name ),
+        \basic_parser\to_html__string( $r->email ),
+        \basic_parser\to_html__string( $r->email_2 ),
+        \basic_parser\to_html__string( $r->phone ),
+        \basic_parser\to_html__string( $r->phone_2 ),
+        \basic_parser\to_html__string( $r->timezone )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+// generic
 
 function to_html( $obj )
 {
     $handler_map = array(
-        'user_management_protocol\SetUserInfoResponse'   => 'to_html_SetUserInfoResponse',
-        'user_management_protocol\GetUserInfoResponse'   => 'to_html_GetUserInfoResponse',
+        // objects
+        'user_management_protocol\UserInfo'         => 'to_html__UserInfo',
+        // messages
+        'user_management_protocol\SetUserInfoRequest'         => 'to_html__SetUserInfoRequest',
+        'user_management_protocol\SetUserInfoResponse'         => 'to_html__SetUserInfoResponse',
+        'user_management_protocol\GetUserInfoRequest'         => 'to_html__GetUserInfoRequest',
+        'user_management_protocol\GetUserInfoResponse'         => 'to_html__GetUserInfoResponse',
     );
 
-    $type = get_class ( $obj );
+    $type = get_class( $obj );
 
     if( array_key_exists( $type, $handler_map ) )
     {
@@ -77,7 +156,10 @@ function to_html( $obj )
         return $func( $obj );
     }
 
-    return \generic_protocol\to_html( $obj );
+    return NULL;
 }
+
+# namespace_end user_management_protocol
+
 
 ?>

@@ -1,43 +1,52 @@
-/*
+#ifndef APG_USER_MANAGEMENT__PARSER_H
+#define APG_USER_MANAGEMENT__PARSER_H
 
-Parser.
+// includes
+#include "generic_request/request.h"
+#include "enums.h"
+#include "protocol.h"
 
-Copyright (C) 2019 Sergey Kolevatov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-// $Revision: 12218 $ $Date::2019-03-31 #$ $Author: serge $
-
-#ifndef LIB_USER_MANAGEMENT_PROTOCOL_PARSER_H
-#define LIB_USER_MANAGEMENT_PROTOCOL_PARSER_H
-
-#include "enums.h"              // request_type_e
-
-#include "user_management_protocol.h"    // gender_e
-
-namespace user_management_protocol {
-
-class Parser
+namespace user_management_protocol
 {
-public:
 
-    static gender_e    to_gender( const std::string & s );
-    static request_type_e   to_request_type( const std::string & s );
-};
+namespace parser
+{
+
+typedef basic_parser::Object    Object;
+
+basic_parser::Object * to_forward_message( const generic_request::Request & r );
+
+request_type_e detect_request_type( const generic_request::Request & r );
+
+// enums
+
+void get_value_or_throw( gender_e * res, const std::string & key, const generic_request::Request & r );
+
+// objects
+
+void get_value_or_throw( UserInfo * res, const std::string & key, const generic_request::Request & r );
+
+// base messages
+
+void get_value_or_throw( Request * res, const generic_request::Request & r );
+void get_value_or_throw( BackwardMessage * res, const generic_request::Request & r );
+
+// messages
+
+void get_value_or_throw( SetUserInfoRequest * res, const generic_request::Request & r );
+void get_value_or_throw( SetUserInfoResponse * res, const generic_request::Request & r );
+void get_value_or_throw( GetUserInfoRequest * res, const generic_request::Request & r );
+void get_value_or_throw( GetUserInfoResponse * res, const generic_request::Request & r );
+
+// to_... functions
+
+Object * to_SetUserInfoRequest( const generic_request::Request & r );
+Object * to_SetUserInfoResponse( const generic_request::Request & r );
+Object * to_GetUserInfoRequest( const generic_request::Request & r );
+Object * to_GetUserInfoResponse( const generic_request::Request & r );
+
+} // namespace parser
 
 } // namespace user_management_protocol
 
-#endif // LIB_USER_MANAGEMENT_PROTOCOL_PARSER_H
+#endif // APG_USER_MANAGEMENT__PARSER_H

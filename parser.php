@@ -56,7 +56,7 @@ function parse__SetUserInfoRequest( & $csv_arr )
     $offset = 1;
 
     // base class
-    parse_Request( $res, $csv_arr, $offset );
+    parse__Request( $res, $csv_arr, $offset );
 
     $res->user_id = \basic_parser\parse__int( $csv_arr, $offset );
     $res->user_info = parse__UserInfo( $csv_arr, $offset );
@@ -71,7 +71,7 @@ function parse__SetUserInfoResponse( & $csv_arr )
     $offset = 1;
 
     // base class
-    parse_BackwardMessage( $res, $csv_arr, $offset );
+    parse__BackwardMessage( $res, $csv_arr, $offset );
 
 
     return $res;
@@ -84,7 +84,7 @@ function parse__GetUserInfoRequest( & $csv_arr )
     $offset = 1;
 
     // base class
-    parse_Request( $res, $csv_arr, $offset );
+    parse__Request( $res, $csv_arr, $offset );
 
     $res->user_id = \basic_parser\parse__int( $csv_arr, $offset );
 
@@ -98,7 +98,7 @@ function parse__GetUserInfoResponse( & $csv_arr )
     $offset = 1;
 
     // base class
-    parse_BackwardMessage( $res, $csv_arr, $offset );
+    parse__BackwardMessage( $res, $csv_arr, $offset );
 
     $res->user_id = \basic_parser\parse__int( $csv_arr, $offset );
     $res->gender = parse__gender_e( $csv_arr, $offset );
@@ -116,7 +116,7 @@ function parse__GetUserInfoResponse( & $csv_arr )
 
 // generic
 
-class Parser
+class Parser extends \basic_parser\Parser
 {
 
 protected static function parse_csv_array( $csv_arr )
@@ -126,10 +126,10 @@ protected static function parse_csv_array( $csv_arr )
 
     $handler_map = array(
         // messages
-        'user_management_protocol\SetUserInfoRequest'         => 'parse__SetUserInfoRequest',
-        'user_management_protocol\SetUserInfoResponse'         => 'parse__SetUserInfoResponse',
-        'user_management_protocol\GetUserInfoRequest'         => 'parse__GetUserInfoRequest',
-        'user_management_protocol\GetUserInfoResponse'         => 'parse__GetUserInfoResponse',
+        'user_management/SetUserInfoRequest'         => 'parse__SetUserInfoRequest',
+        'user_management/SetUserInfoResponse'         => 'parse__SetUserInfoResponse',
+        'user_management/GetUserInfoRequest'         => 'parse__GetUserInfoRequest',
+        'user_management/GetUserInfoResponse'         => 'parse__GetUserInfoResponse',
     );
 
     $type = $csv_arr[0][0];
@@ -137,7 +137,7 @@ protected static function parse_csv_array( $csv_arr )
     if( array_key_exists( $type, $handler_map ) )
     {
         $func = '\\user_management_protocol\\' . $handler_map[ $type ];
-        return $func( $obj );
+        return $func( $csv_arr[0] );
     }
 
     return NULL;

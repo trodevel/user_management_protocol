@@ -5,6 +5,7 @@ namespace user_management_protocol;
 
 // includes
 require_once 'protocol.php';
+require_once __DIR__.'/../generic_protocol/object_initializer.php';
 
 // objects
 
@@ -42,7 +43,9 @@ function initialize__Request( & $res
 function initialize__BackwardMessage( & $res
  )
 {
-    // no base class
+    // base class
+    \generic_protocol\initialize__BackwardMessage( $res );
+
 }
 
 // messages

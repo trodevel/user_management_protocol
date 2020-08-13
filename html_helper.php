@@ -4,6 +4,7 @@ namespace user_management_protocol;
 
 
 // includes
+require_once __DIR__.'/../generic_protocol/html_helper.php';
 require_once __DIR__.'/../basic_objects/html_helper.php';
 require_once __DIR__.'/../basic_parser/html_helper.php';
 require_once 'str_helper.php';
@@ -156,7 +157,7 @@ function to_html( $obj )
         return $func( $obj );
     }
 
-    return NULL;
+    return \generic_protocol\to_html( $obj );
 }
 
 # namespace_end user_management_protocol

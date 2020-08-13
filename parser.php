@@ -4,6 +4,7 @@ namespace user_management_protocol;
 
 
 // includes
+require_once __DIR__.'/../generic_protocol/parser.php';
 require_once __DIR__.'/../basic_objects/parser.php';
 require_once __DIR__.'/../basic_parser/parser.php';
 
@@ -116,7 +117,7 @@ function parse__GetUserInfoResponse( & $csv_arr )
 
 // generic
 
-class Parser extends \basic_parser\Parser
+class Parser extends \generic_protocol\Parser
 {
 
 protected static function parse_csv_array( $csv_arr )
@@ -140,7 +141,7 @@ protected static function parse_csv_array( $csv_arr )
         return $func( $csv_arr[0] );
     }
 
-    return NULL;
+    return \generic_protocol\Parser::parse_csv_array( $csv_arr );
 }
 
 }

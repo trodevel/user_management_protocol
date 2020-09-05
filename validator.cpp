@@ -43,12 +43,16 @@ bool validate( const std::string & prefix, const UserInfo & r )
 
 bool validate( const Request & r )
 {
+    // no base class
 
     return true;
 }
 
 bool validate( const BackwardMessage & r )
 {
+    // base class
+    ::generic_protocol::validator::validate( static_cast<const generic_protocol::BackwardMessage&>( r ) );
+
 
     return true;
 }

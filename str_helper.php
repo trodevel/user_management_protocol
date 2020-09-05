@@ -31,7 +31,9 @@ function to_string__gender_e( $r )
 
 function to_string__UserInfo( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " gender=" . to_string__gender_e( $r->gender );
     $res .= " last_name=" . \basic_parser\to_string__string( $r->last_name );
@@ -52,8 +54,11 @@ function to_string__UserInfo( & $r )
 
 function to_string__Request( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
 
+    $res .= "(";
+
+    // no base class
 
     $res .= ")";
 
@@ -62,7 +67,12 @@ function to_string__Request( & $r )
 
 function to_string__BackwardMessage( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
+
+    // base class
+    $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
 
     $res .= ")";
@@ -74,7 +84,9 @@ function to_string__BackwardMessage( & $r )
 
 function to_string__SetUserInfoRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " user_id=" . \basic_parser\to_string__int( $r->user_id );
@@ -85,7 +97,9 @@ function to_string__SetUserInfoRequest( & $r )
 
 function to_string__SetUserInfoResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__BackwardMessage( $r );
 
 
@@ -94,7 +108,9 @@ function to_string__SetUserInfoResponse( & $r )
 
 function to_string__GetUserInfoRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " user_id=" . \basic_parser\to_string__int( $r->user_id );
@@ -104,7 +120,9 @@ function to_string__GetUserInfoRequest( & $r )
 
 function to_string__GetUserInfoResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__BackwardMessage( $r );
 
     $res .= " user_id=" . \basic_parser\to_string__int( $r->user_id );

@@ -3,11 +3,14 @@
 namespace user_management_protocol;
 
 
-// includes
+// base include
 require_once __DIR__.'/../generic_protocol/html_helper.php';
+// includes
 require_once __DIR__.'/../basic_objects/html_helper.php';
 require_once __DIR__.'/../basic_parser/html_helper.php';
-require_once 'str_helper.php';
+
+// own includes
+require_once __DIR__.'/../user_management_protocol/str_helper.php';
 
 // enums
 
@@ -162,7 +165,7 @@ function to_html( $obj )
     return \generic_protocol\to_html( $obj );
 }
 
-# namespace_end user_management_protocol
+// namespace_end user_management_protocol
 
 
 ?>

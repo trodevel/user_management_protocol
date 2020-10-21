@@ -3,10 +3,10 @@
 namespace user_management_protocol;
 
 
-// includes
-require_once 'protocol.php';
-require_once 'dummy_creator.php';
-require_once 'html_helper.php';
+// own includes
+require_once __DIR__.'/../user_management_protocol/protocol.php';
+require_once __DIR__.'/../user_management_protocol/dummy_creator.php';
+require_once __DIR__.'/../user_management_protocol/html_helper.php';
 
 # objects
 
@@ -63,7 +63,7 @@ function example_GetUserInfoResponse()
 
 }
 
-# namespace_end user_management_protocol
+// namespace_end user_management_protocol
 
 
 ?>

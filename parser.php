@@ -3,8 +3,9 @@
 namespace user_management_protocol;
 
 
-// includes
+// base include
 require_once __DIR__.'/../generic_protocol/parser.php';
+// includes
 require_once __DIR__.'/../basic_objects/parser.php';
 require_once __DIR__.'/../basic_parser/parser.php';
 
@@ -131,10 +132,10 @@ protected static function parse_csv_array( $csv_arr )
 
     $handler_map = array(
         // messages
-        'user_management/SetUserInfoRequest'         => 'parse__SetUserInfoRequest',
-        'user_management/SetUserInfoResponse'         => 'parse__SetUserInfoResponse',
-        'user_management/GetUserInfoRequest'         => 'parse__GetUserInfoRequest',
-        'user_management/GetUserInfoResponse'         => 'parse__GetUserInfoResponse',
+        'user_management_protocol/SetUserInfoRequest'         => 'parse__SetUserInfoRequest',
+        'user_management_protocol/SetUserInfoResponse'         => 'parse__SetUserInfoResponse',
+        'user_management_protocol/GetUserInfoRequest'         => 'parse__GetUserInfoRequest',
+        'user_management_protocol/GetUserInfoResponse'         => 'parse__GetUserInfoResponse',
     );
 
     $type = $csv_arr[0][0];
@@ -150,7 +151,7 @@ protected static function parse_csv_array( $csv_arr )
 
 }
 
-# namespace_end user_management_protocol
+// namespace_end user_management_protocol
 
 
 ?>

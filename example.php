@@ -3,11 +3,11 @@
 namespace user_management_protocol;
 
 
-// includes
-require_once 'protocol.php';
-require_once 'dummy_creator.php';
-require_once 'str_helper.php';
-require_once 'request_encoder.php';
+// own includes
+require_once __DIR__.'/../user_management_protocol/protocol.php';
+require_once __DIR__.'/../user_management_protocol/dummy_creator.php';
+require_once __DIR__.'/../user_management_protocol/str_helper.php';
+require_once __DIR__.'/../user_management_protocol/request_encoder.php';
 
 # objects
 
@@ -76,7 +76,7 @@ function example_GetUserInfoResponse()
 
 }
 
-# namespace_end user_management_protocol
+// namespace_end user_management_protocol
 
 
 ?>

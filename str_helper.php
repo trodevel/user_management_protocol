@@ -3,8 +3,9 @@
 namespace user_management_protocol;
 
 
-// includes
+// base include
 require_once __DIR__.'/../generic_protocol/str_helper.php';
+// includes
 require_once __DIR__.'/../basic_objects/str_helper.php';
 require_once __DIR__.'/../basic_parser/str_helper.php';
 
@@ -164,7 +165,7 @@ function to_string( $obj )
     return \generic_protocol\to_string( $obj );
 }
 
-# namespace_end user_management_protocol
+// namespace_end user_management_protocol
 
 
 ?>

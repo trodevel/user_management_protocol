@@ -3,8 +3,9 @@
 namespace user_management_protocol;
 
 
-// includes
+// base include
 require_once __DIR__.'/../generic_protocol/request_encoder.php';
+// includes
 require_once __DIR__.'/../basic_objects/request_encoder.php';
 require_once __DIR__.'/../basic_parser/request_encoder.php';
 
@@ -60,7 +61,7 @@ function to_generic_request__BackwardMessage( & $r )
 function to_generic_request__SetUserInfoRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "user_management/SetUserInfoRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "user_management_protocol/SetUserInfoRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -74,7 +75,7 @@ function to_generic_request__SetUserInfoRequest( & $r )
 function to_generic_request__SetUserInfoResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "user_management/SetUserInfoResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "user_management_protocol/SetUserInfoResponse" );
 
     // base class
     $res .= to_generic_request__BackwardMessage( $r );
@@ -86,7 +87,7 @@ function to_generic_request__SetUserInfoResponse( & $r )
 function to_generic_request__GetUserInfoRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "user_management/GetUserInfoRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "user_management_protocol/GetUserInfoRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -99,7 +100,7 @@ function to_generic_request__GetUserInfoRequest( & $r )
 function to_generic_request__GetUserInfoResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "user_management/GetUserInfoResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "user_management_protocol/GetUserInfoResponse" );
 
     // base class
     $res .= to_generic_request__BackwardMessage( $r );
@@ -141,7 +142,7 @@ function to_generic_request( $obj )
     return \generic_protocol\to_generic_request( $obj );
 }
 
-# namespace_end user_management_protocol
+// namespace_end user_management_protocol
 
 
 ?>

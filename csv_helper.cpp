@@ -65,7 +65,7 @@ std::ostream & write( std::ostream & os, const BackwardMessage & r )
 
 std::ostream & write( std::ostream & os, const SetUserInfoRequest & r )
 {
-    write( os, std::string( "user_management/SetUserInfoRequest" ) );
+    write( os, std::string( "user_management_protocol/SetUserInfoRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -78,7 +78,7 @@ std::ostream & write( std::ostream & os, const SetUserInfoRequest & r )
 
 std::ostream & write( std::ostream & os, const SetUserInfoResponse & r )
 {
-    write( os, std::string( "user_management/SetUserInfoResponse" ) );
+    write( os, std::string( "user_management_protocol/SetUserInfoResponse" ) );
 
     // base class
     csv_helper::write( os, static_cast<const BackwardMessage&>( r ) );
@@ -89,7 +89,7 @@ std::ostream & write( std::ostream & os, const SetUserInfoResponse & r )
 
 std::ostream & write( std::ostream & os, const GetUserInfoRequest & r )
 {
-    write( os, std::string( "user_management/GetUserInfoRequest" ) );
+    write( os, std::string( "user_management_protocol/GetUserInfoRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -101,7 +101,7 @@ std::ostream & write( std::ostream & os, const GetUserInfoRequest & r )
 
 std::ostream & write( std::ostream & os, const GetUserInfoResponse & r )
 {
-    write( os, std::string( "user_management/GetUserInfoResponse" ) );
+    write( os, std::string( "user_management_protocol/GetUserInfoResponse" ) );
 
     // base class
     csv_helper::write( os, static_cast<const BackwardMessage&>( r ) );

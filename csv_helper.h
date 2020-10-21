@@ -1,5 +1,5 @@
-#ifndef APG_USER_MANAGEMENT__CSV_HELPER_H
-#define APG_USER_MANAGEMENT__CSV_HELPER_H
+#ifndef APG_USER_MANAGEMENT_PROTOCOL__CSV_HELPER_H
+#define APG_USER_MANAGEMENT_PROTOCOL__CSV_HELPER_H
 
 // system includes
 #include <sstream>
@@ -46,4 +46,4 @@ std::string to_csv( const T & l )
 
 } // namespace user_management_protocol
 
-#endif // APG_USER_MANAGEMENT__CSV_HELPER_H
+#endif // APG_USER_MANAGEMENT_PROTOCOL__CSV_HELPER_H

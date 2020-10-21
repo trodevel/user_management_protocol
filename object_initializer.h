@@ -1,5 +1,5 @@
-#ifndef APG_USER_MANAGEMENT__OBJECT_INITIALIZER_H
-#define APG_USER_MANAGEMENT__OBJECT_INITIALIZER_H
+#ifndef APG_USER_MANAGEMENT_PROTOCOL__OBJECT_INITIALIZER_H
+#define APG_USER_MANAGEMENT_PROTOCOL__OBJECT_INITIALIZER_H
 
 // includes
 #include "protocol.h"
@@ -78,4 +78,4 @@ GetUserInfoResponse * create_GetUserInfoResponse(
 
 } // namespace user_management_protocol
 
-#endif // APG_USER_MANAGEMENT__OBJECT_INITIALIZER_H
+#endif // APG_USER_MANAGEMENT_PROTOCOL__OBJECT_INITIALIZER_H

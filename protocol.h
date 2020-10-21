@@ -1,5 +1,5 @@
-#ifndef APG_USER_MANAGEMENT__PROTOCOL_H
-#define APG_USER_MANAGEMENT__PROTOCOL_H
+#ifndef APG_USER_MANAGEMENT_PROTOCOL__PROTOCOL_H
+#define APG_USER_MANAGEMENT_PROTOCOL__PROTOCOL_H
 
 // system includes
 #include <vector>
@@ -52,7 +52,7 @@ struct SetUserInfoRequest: public Request
 {
     enum
     {
-        message_id = 2140375678
+        message_id = 2229419794
     };
 
     uint32_t             user_id   ;
@@ -64,7 +64,7 @@ struct SetUserInfoResponse: public BackwardMessage
 {
     enum
     {
-        message_id = 3912424720
+        message_id = 2915926486
     };
 };
 
@@ -73,7 +73,7 @@ struct GetUserInfoRequest: public Request
 {
     enum
     {
-        message_id = 1519911264
+        message_id = 2716447756
     };
 
     uint32_t             user_id   ;
@@ -84,7 +84,7 @@ struct GetUserInfoResponse: public BackwardMessage
 {
     enum
     {
-        message_id = 320400376
+        message_id = 1474803518
     };
 
     uint32_t             user_id   ;
@@ -101,5 +101,5 @@ struct GetUserInfoResponse: public BackwardMessage
 
 } // namespace user_management_protocol
 
-#endif // APG_USER_MANAGEMENT__PROTOCOL_H
+#endif // APG_USER_MANAGEMENT_PROTOCOL__PROTOCOL_H
 

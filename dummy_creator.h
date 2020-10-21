@@ -1,5 +1,5 @@
-#ifndef APG_USER_MANAGEMENT__DUMMY_CREATOR_H
-#define APG_USER_MANAGEMENT__DUMMY_CREATOR_H
+#ifndef APG_USER_MANAGEMENT_PROTOCOL__DUMMY_CREATOR_H
+#define APG_USER_MANAGEMENT_PROTOCOL__DUMMY_CREATOR_H
 
 // includes
 #include "protocol.h"
@@ -29,4 +29,4 @@ GetUserInfoResponse * create__GetUserInfoResponse();
 
 } // namespace user_management_protocol
 
-#endif // APG_USER_MANAGEMENT__DUMMY_CREATOR_H
+#endif // APG_USER_MANAGEMENT_PROTOCOL__DUMMY_CREATOR_H

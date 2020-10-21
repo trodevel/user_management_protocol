@@ -54,7 +54,7 @@ class SetUserInfoRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2140375678;
+    const MESSAGE_ID = 2229419794;
 
     public $user_id             ; // type: uint32_t
     public $user_info           ; // type: UserInfo
@@ -68,7 +68,7 @@ class SetUserInfoResponse extends BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3912424720;
+    const MESSAGE_ID = 2915926486;
 };
 
 // Message
@@ -79,7 +79,7 @@ class GetUserInfoRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 1519911264;
+    const MESSAGE_ID = 2716447756;
 
     public $user_id             ; // type: uint32_t
 };
@@ -92,7 +92,7 @@ class GetUserInfoResponse extends BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 320400376;
+    const MESSAGE_ID = 1474803518;
 
     public $user_id             ; // type: uint32_t
     public $gender              ; // type: gender_e
@@ -106,7 +106,7 @@ class GetUserInfoResponse extends BackwardMessage
     public $timezone            ; // type: string
 };
 
-# namespace_end user_management_protocol
+// namespace_end user_management_protocol
 
 
 ?>

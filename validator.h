@@ -1,5 +1,5 @@
-#ifndef APG_USER_MANAGEMENT__VALIDATOR_H
-#define APG_USER_MANAGEMENT__VALIDATOR_H
+#ifndef APG_USER_MANAGEMENT_PROTOCOL__VALIDATOR_H
+#define APG_USER_MANAGEMENT_PROTOCOL__VALIDATOR_H
 
 // includes
 #include "protocol.h"
@@ -30,4 +30,4 @@ bool validate( const GetUserInfoResponse & r );
 
 } // namespace user_management_protocol
 
-#endif // APG_USER_MANAGEMENT__VALIDATOR_H
+#endif // APG_USER_MANAGEMENT_PROTOCOL__VALIDATOR_H
